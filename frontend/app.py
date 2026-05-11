@@ -24,7 +24,8 @@ API_URL = os.getenv("API_URL", "http://api:8080")
 st.title("Streamlit Dashboard")
 
 
-st.header("API ALL Nodes")
+st.header("Nodes")
+st.write("Nodes")
 try:
     response = requests.get(f"{API_URL}/api/nodes")
 
@@ -40,7 +41,8 @@ except Exception as e:
     st.error(f"Error fetching nodes: {e}")
 
 
-st.header("Register new Node")
+st.header("Register")
+st.write("Register")
 with st.form("register_node_form"):
 
     name = st.text_input("Name")
@@ -73,6 +75,7 @@ with st.form("register_node_form"):
 
 
 st.header("Delete Node")
+st.write("Delete Node")
 node_name = st.text_input("Node name to delete")
 if st.button("Delete Node"):
 
@@ -90,7 +93,8 @@ if st.button("Delete Node"):
         st.error(f"Error deleting node: {e}")
 
 
-st.header("API Health")
+st.header("Health")
+st.write("Health")
 try:
     health_response = requests.get(f"{API_URL}/health")
 
