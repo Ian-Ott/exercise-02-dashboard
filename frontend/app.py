@@ -14,18 +14,20 @@ The API runs at the URL in the API_URL environment variable (default: http://api
 
 # TODO: Implement your Streamlit dashboard here
 
+
+import streamlit as st
+st.set_page_config(page_title="Nodes Register Dashboard")
 import os
 import requests
-import streamlit as st
-
-
 API_URL = os.getenv("API_URL", "http://api:8080")
 
-st.title("Streamlit Dashboard")
 
+@st.cache_data(ttl=1)
+def get_nodes():
+    response = requests.get(f"{API_URL}/api/nodes")
+    return response
 
 st.header("Nodes")
-st.write("Nodes")
 try:
     response = requests.get(f"{API_URL}/api/nodes")
 
@@ -42,7 +44,6 @@ except Exception as e:
 
 
 st.header("Register")
-st.write("Register")
 with st.form("register_node_form"):
 
     name = st.text_input("Name")
@@ -75,7 +76,6 @@ with st.form("register_node_form"):
 
 
 st.header("Delete Node")
-st.write("Delete Node")
 node_name = st.text_input("Node name to delete")
 if st.button("Delete Node"):
 
@@ -94,7 +94,6 @@ if st.button("Delete Node"):
 
 
 st.header("Health")
-st.write("Health")
 try:
     health_response = requests.get(f"{API_URL}/health")
 
